@@ -184,7 +184,7 @@ elif page=='Fidélisation':
             dops=opts_demands(); d=st.selectbox('Demande / événement',list(dops.keys())); evdate=st.date_input('Date de réalisation',date.today()); score=st.slider('Satisfaction client',1,5,5); comment=st.text_area('Commentaire')
             if st.form_submit_button('Enregistrer le retour'):
                 execute('INSERT INTO feedback(demande_id,event_date,satisfaction,comment) VALUES(?,?,?,?)',(dops[d],evdate.isoformat(),score,comment)); st.success('Retour enregistré'); st.rerun()
-  f=read('SELECT f.*,c.name AS client_name,d.event_type,d.event_date AS demande_event_date FROM feedback f LEFT JOIN demandes d ON d.id=f.demande_id LEFT JOIN clients c ON c.id=d.client_id ORDER BY f.id DESC')
+    f=read('SELECT f.*,c.name AS client_name,d.event_type,d.event_date AS demande_event_date FROM feedback f LEFT JOIN demandes d ON d.id=f.demande_id LEFT JOIN clients c ON c.id=d.client_id ORDER BY f.id DESC')
     if len(f): st.dataframe(f[['client_name','event_type','demande_event_date','satisfaction','comment']],hide_index=True,use_container_width=True)
     else: st.info('Aucun retour enregistré pour le moment.')
     st.subheader('Clients ayant plusieurs demandes')
