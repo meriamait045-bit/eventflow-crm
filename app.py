@@ -185,7 +185,7 @@ elif page=='Fidélisation':
             if st.form_submit_button('Enregistrer le retour'):
                 execute('INSERT INTO feedback(demande_id,event_date,satisfaction,comment) VALUES(?,?,?,?)',(dops[d],evdate.isoformat(),score,comment)); st.success('Retour enregistré'); st.rerun()
     f=read('SELECT f.*,c.name AS client_name,d.event_type,d.event_date FROM feedback f LEFT JOIN demandes d ON d.id=f.demande_id LEFT JOIN clients c ON c.id=d.client_id ORDER BY f.id DESC')
-    if len(f): st.dataframe(f[['client_name','event_type','event_date','satisfaction','event_date','comment']],hide_index=True,use_container_width=True)
+    if len(f): st.dataframe(f[['client_name','event_type','event_date','satisfaction','comment']],hide_index=True,use_container_width=True)
     else: st.info('Aucun retour enregistré pour le moment.')
     st.subheader('Clients ayant plusieurs demandes')
     repeat=read('SELECT c.name,COUNT(d.id) AS demandes FROM clients c JOIN demandes d ON d.client_id=c.id GROUP BY c.id HAVING COUNT(d.id)>1')
